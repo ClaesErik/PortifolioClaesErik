@@ -1,6 +1,8 @@
 import 'package:claes_erik/components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LandingPageWeb extends StatefulWidget {
   const LandingPageWeb({super.key});
@@ -16,7 +18,67 @@ class _LandingPageWebState extends State<LandingPageWeb> {
     var heightDevice = MediaQuery.of(context).size.height;
     var widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 72,
+              backgroundColor: accentColor,
+              child: CircleAvatar(
+                radius: 70,
+                backgroundColor: Colors.white,
+                backgroundImage:
+                    AssetImage("assets/Claes_foto_3_por_4-circle.png"),
+              ),
+            ),
+            SizedBox(height: 15.0),
+            SansBold("Claes Erik", 30.0),
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/instagram.svg",
+                    colorFilter:
+                        ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                    width: 35,
+                  ),
+                  onPressed: () async {
+                    await launchUrl(
+                        Uri.parse("https://www.instagram.com/claeserikjr/"));
+                  },
+                ),
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/github.svg",
+                    colorFilter:
+                        ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                    width: 35,
+                  ),
+                  onPressed: () async {
+                    await launchUrl(Uri.parse("https://github.com/ClaesErik/"));
+                  },
+                ),
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/linkedin.svg",
+                    colorFilter:
+                        ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                    width: 35,
+                  ),
+                  onPressed: () async {
+                    await launchUrl(Uri.parse(
+                        "https://www.linkedin.com/in/claes-junior-9378a38a"));
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
