@@ -47,7 +47,7 @@ class _TabsWebState extends State<TabsWeb> {
                 decorationThickness: 1.0,
                 decorationColor: widget.accentColor,
               )
-            : GoogleFonts.roboto(color: Colors.black, fontSize: 23.0),
+            : GoogleFonts.roboto(color: Colors.black, fontSize: 20.0),
         child: Text(
           widget.title,
           style: GoogleFonts.oswald(
@@ -181,12 +181,12 @@ class AnimatedCardWeb extends StatefulWidget {
 
 class _AnimatedCardWebState extends State<AnimatedCardWeb>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller = AnimationController(
+  late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(seconds: 4),
   )..repeat(reverse: true);
 
-  late Animation<Offset> _animation = Tween(
+  late final Animation<Offset> _animation = Tween(
     begin: widget.reverse == true ? Offset(0.0, 0.08) : Offset.zero,
     end: widget.reverse == true ? Offset.zero : Offset(0.0, 0.08),
   ).animate(_controller);
