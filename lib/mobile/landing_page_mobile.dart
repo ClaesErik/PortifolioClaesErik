@@ -56,7 +56,16 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
                       onPressed: () async =>
                           await launchUrl(Uri.parse(Globals.instaURL)),
                       icon: SvgPicture.asset(
-                        "assets/instagram.svg",
+                        Globals.instagramIcon,
+                        colorFilter:
+                            ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                        width: 35.0,
+                      )),
+                  IconButton(
+                      onPressed: () async =>
+                          await launchUrl(Uri.parse(Globals.githubURL)),
+                      icon: SvgPicture.asset(
+                        Globals.githubIcon,
                         colorFilter:
                             ColorFilter.mode(Colors.black, BlendMode.srcIn),
                         width: 35.0,
@@ -65,7 +74,7 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
                       onPressed: () async =>
                           await launchUrl(Uri.parse(Globals.linkedinURL)),
                       icon: SvgPicture.asset(
-                        "assets/linkedin.svg",
+                        Globals.linkedinIcon,
                         colorFilter:
                             ColorFilter.mode(Colors.black, BlendMode.srcIn),
                         width: 35.0,
@@ -90,8 +99,7 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
                   child: CircleAvatar(
                     radius: 110.0,
                     backgroundColor: Colors.white,
-                    backgroundImage:
-                        AssetImage("assets/Claes_foto_3_por_4-circle.png"),
+                    backgroundImage: AssetImage(Globals.avatarCircleImage),
                   ),
                 ),
                 SizedBox(
@@ -216,9 +224,48 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
             alignment: WrapAlignment.center,
             children: [
               SansBold("Contact Me", 35.0),
-              SizedBox(height: 155.0),
+              SizedBox(height: 15.0),
+              TextForm(
+                  accentColor: Globals.accentColor,
+                  text: "First Name",
+                  containersWidth: widthDevice / 1.4,
+                  hintext: "Please type your first name"),
+              TextForm(
+                  accentColor: Globals.accentColor,
+                  text: "Last Name",
+                  containersWidth: widthDevice / 1.4,
+                  hintext: "Please type your last name"),
+              TextForm(
+                  accentColor: Globals.accentColor,
+                  text: "Email",
+                  containersWidth: widthDevice / 1.4,
+                  hintext: "Please type your email address"),
+              TextForm(
+                  accentColor: Globals.accentColor,
+                  text: "Phone number",
+                  containersWidth: widthDevice / 1.4,
+                  hintext: "Please type your phone number"),
+              TextForm(
+                  accentColor: Globals.accentColor,
+                  text: "Message",
+                  containersWidth: widthDevice / 1.4,
+                  hintext: "Please type our first name",
+                  maxLines: 10),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 90.0),
+                child: MaterialButton(
+                  onPressed: () {},
+                  elevation: 20.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  height: 60.0,
+                  minWidth: widthDevice / 2.2,
+                  color: Globals.accentColor,
+                  child: SansBold("Submit", 20.0),
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -7,8 +7,14 @@ import 'globals.dart';
 
 class TabsWeb extends StatefulWidget {
   final title;
+  final route;
   final accentColor;
-  const TabsWeb(this.title, this.accentColor, {super.key});
+  const TabsWeb({
+    super.key,
+    this.title,
+    this.accentColor,
+    this.route,
+  });
 
   @override
   State<TabsWeb> createState() => _TabsWebState();
@@ -19,42 +25,47 @@ class _TabsWebState extends State<TabsWeb> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          isSelected = true;
-        });
-        print("Entered");
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(widget.route);
       },
-      onExit: (_) {
-        setState(() {
-          isSelected = false;
-        });
-        print("Exit");
-      },
-      child: AnimatedDefaultTextStyle(
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.elasticIn,
-        style: isSelected
-            ? GoogleFonts.roboto(
-                shadows: [
-                  Shadow(
-                    color: widget.accentColor,
-                    offset: Offset(8, -8),
-                  ),
-                ],
-                fontSize: 25.0,
-                color: Colors.black,
-                decoration: TextDecoration.underline,
-                decorationThickness: 1.0,
-                decorationColor: widget.accentColor,
-              )
-            : GoogleFonts.roboto(color: Colors.black, fontSize: 20.0),
-        child: Text(
-          widget.title,
-          style: GoogleFonts.oswald(
-            color: Colors.black,
-            fontSize: 23.0,
+      child: MouseRegion(
+        onEnter: (_) {
+          setState(() {
+            isSelected = true;
+          });
+          print("Entered");
+        },
+        onExit: (_) {
+          setState(() {
+            isSelected = false;
+          });
+          print("Exit");
+        },
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.elasticIn,
+          style: isSelected
+              ? GoogleFonts.roboto(
+                  shadows: [
+                    Shadow(
+                      color: widget.accentColor,
+                      offset: Offset(8, -8),
+                    ),
+                  ],
+                  fontSize: 25.0,
+                  color: Colors.black,
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 1.0,
+                  decorationColor: widget.accentColor,
+                )
+              : GoogleFonts.roboto(color: Colors.black, fontSize: 20.0),
+          child: Text(
+            widget.title,
+            style: GoogleFonts.oswald(
+              color: Colors.black,
+              fontSize: 23.0,
+            ),
           ),
         ),
       ),
@@ -86,7 +97,9 @@ class _TabsMobileState extends State<TabsMobile> {
         widget.text,
         style: GoogleFonts.openSans(fontSize: 20.0, color: Colors.white),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed(widget.route);
+      },
     );
   }
 }
@@ -126,16 +139,16 @@ class Sans extends StatelessWidget {
 
 class TextForm extends StatelessWidget {
   final accentColor;
-  final heading;
-  final width;
+  final text;
+  final containersWidth;
   final hintext;
   final maxLines;
 
   const TextForm(
       {super.key,
       @required this.accentColor,
-      @required this.heading,
-      @required this.width,
+      @required this.text,
+      @required this.containersWidth,
       @required this.hintext,
       this.maxLines});
 
@@ -144,16 +157,16 @@ class TextForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Sans(heading, 16.0),
+        Sans(text, 16.0),
         SizedBox(height: 5.0),
         SizedBox(
-          width: width,
+          width: containersWidth,
           child: TextFormField(
             inputFormatters: [
-              LengthLimitingTextInputFormatter(10),
+              LengthLimitingTextInputFormatter(50),
               FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
             ],
-            maxLines: maxLines == null ? null : maxLines,
+            maxLines: maxLines,
             decoration: InputDecoration(
               focusedErrorBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red),

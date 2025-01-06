@@ -29,8 +29,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
               child: CircleAvatar(
                 radius: 70.0,
                 backgroundColor: Colors.white,
-                backgroundImage:
-                    AssetImage("assets/Claes_foto_3_por_4-circle.png"),
+                backgroundImage: AssetImage(Globals.avatarCircleImage),
               ),
             ),
             SizedBox(height: 15.0),
@@ -41,7 +40,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
               children: [
                 IconButton(
                   icon: SvgPicture.asset(
-                    "assets/instagram.svg",
+                    Globals.instagramIcon,
                     colorFilter:
                         ColorFilter.mode(Colors.black, BlendMode.srcIn),
                     width: 35.0,
@@ -52,7 +51,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 ),
                 IconButton(
                   icon: SvgPicture.asset(
-                    "assets/github.svg",
+                    Globals.githubIcon,
                     colorFilter:
                         ColorFilter.mode(Colors.black, BlendMode.srcIn),
                     width: 35.0,
@@ -63,7 +62,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 ),
                 IconButton(
                   icon: SvgPicture.asset(
-                    "assets/linkedin.svg",
+                    Globals.linkedinIcon,
                     colorFilter:
                         ColorFilter.mode(Colors.black, BlendMode.srcIn),
                     width: 35.0,
@@ -88,15 +87,28 @@ class _LandingPageWebState extends State<LandingPageWeb> {
         title: Row(
           children: [
             Spacer(),
-            TabsWeb("Home", Globals.accentColor),
+            TabsWeb(
+                title: "Home", accentColor: Globals.accentColor, route: '/'),
             Spacer(),
-            TabsWeb("Works", Globals.accentColor),
+            TabsWeb(
+                title: "Works",
+                accentColor: Globals.accentColor,
+                route: '/works'),
             Spacer(),
-            TabsWeb("Blog", Globals.accentColor),
+            TabsWeb(
+                title: "Blog",
+                accentColor: Globals.accentColor,
+                route: '/blog'),
             Spacer(),
-            TabsWeb("About", Globals.accentColor),
+            TabsWeb(
+                title: "About",
+                accentColor: Globals.accentColor,
+                route: '/about'),
             Spacer(),
-            TabsWeb("Contact", Globals.accentColor),
+            TabsWeb(
+                title: "Contact",
+                accentColor: Globals.accentColor,
+                route: '/contact'),
             Spacer(),
           ],
         ),
@@ -166,8 +178,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 180.0,
-                      backgroundImage:
-                          AssetImage("assets/Claes_foto_3_por_4-circle.png"),
+                      backgroundImage: AssetImage(Globals.avatarCircleImage),
                     ),
                   ),
                 ),
@@ -265,15 +276,15 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                       children: [
                         TextForm(
                           accentColor: Globals.accentColor,
-                          width: 350.0,
-                          heading: "First Name",
+                          containersWidth: 350.0,
+                          text: "First Name",
                           hintext: "Please enter your first name",
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
                             accentColor: Globals.accentColor,
-                            heading: "Email",
-                            width: 350.0,
+                            text: "Email",
+                            containersWidth: 350.0,
                             hintext: "Please enter your email address")
                       ],
                     ),
@@ -281,15 +292,15 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                       children: [
                         TextForm(
                           accentColor: Globals.accentColor,
-                          heading: "Last Name",
-                          width: 350.0,
+                          text: "Last Name",
+                          containersWidth: 350.0,
                           hintext: "Please type you last name",
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
                             accentColor: Globals.accentColor,
-                            heading: "Phone Number",
-                            width: 350.0,
+                            text: "Phone Number",
+                            containersWidth: 350.0,
                             hintext: "Please type your phone number"),
                       ],
                     )
@@ -297,8 +308,8 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 ),
                 TextForm(
                   accentColor: Globals.accentColor,
-                  heading: "Message",
-                  width: widthDevice / 1.6,
+                  text: "Message",
+                  containersWidth: widthDevice / 1.6,
                   hintext: "Please type your message",
                   maxLines: 10,
                 ),
