@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'globals.dart';
+
 class TabsWeb extends StatefulWidget {
   final title;
   final accentColor;
@@ -56,6 +58,35 @@ class _TabsWebState extends State<TabsWeb> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TabsMobile extends StatefulWidget {
+  final text;
+  final route;
+  const TabsMobile({super.key, @required this.text, @required this.route});
+
+  @override
+  State<TabsMobile> createState() => _TabsMobileState();
+}
+
+class _TabsMobileState extends State<TabsMobile> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      elevation: 20.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      height: 50.0,
+      minWidth: 200.0,
+      color: Colors.black,
+      child: Text(
+        widget.text,
+        style: GoogleFonts.openSans(fontSize: 20.0, color: Colors.white),
+      ),
+      onPressed: () {},
     );
   }
 }
@@ -157,15 +188,17 @@ class TextForm extends StatelessWidget {
   }
 }
 
-class AnimatedCardWeb extends StatefulWidget {
+class AnimatedCard extends StatefulWidget {
   final imagePath;
   final text;
   final subtext;
   final fit;
   final reverse;
   final accentColor;
+  final height;
+  final width;
 
-  const AnimatedCardWeb({
+  const AnimatedCard({
     super.key,
     @required this.imagePath,
     @required this.text,
@@ -173,13 +206,15 @@ class AnimatedCardWeb extends StatefulWidget {
     this.fit,
     this.reverse,
     @required this.accentColor,
+    this.height,
+    this.width,
   });
 
   @override
-  State<AnimatedCardWeb> createState() => _AnimatedCardWebState();
+  State<AnimatedCard> createState() => _AnimatedCardState();
 }
 
-class _AnimatedCardWebState extends State<AnimatedCardWeb>
+class _AnimatedCardState extends State<AnimatedCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
@@ -215,9 +250,9 @@ class _AnimatedCardWebState extends State<AnimatedCardWeb>
             children: [
               Image.asset(
                 widget.imagePath,
-                height: 200.0,
-                width: 200.0,
-                fit: widget.fit ?? null,
+                height: widget.height ?? 200.0,
+                width: widget.width ?? 200.0,
+                fit: widget.fit,
               ),
               SizedBox(height: 10.0),
               SansBold(widget.text, 15.0),
@@ -226,6 +261,25 @@ class _AnimatedCardWebState extends State<AnimatedCardWeb>
           ),
         ),
       ),
+    );
+  }
+}
+
+///some small components
+class AccentBoxSkills extends StatelessWidget {
+  final text;
+  const AccentBoxSkills({super.key, @required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: Globals.accentColor, style: BorderStyle.solid, width: 2.0),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      padding: EdgeInsets.all(7.0),
+      child: Sans(text, 15.0),
     );
   }
 }

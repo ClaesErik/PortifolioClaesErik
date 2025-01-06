@@ -1,8 +1,9 @@
-import 'package:claes_erik/mobile/landing_page_mobile.dart';
-import 'package:claes_erik/web/landing_page_web.dart';
+import 'package:claes_erik/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
+  usePathUrlStrategy();
   runApp(const MyApp());
 }
 
@@ -12,15 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 800) {
-            return LandingPageWeb();
-          } else {
-            return LandingPageMobile();
-          }
-        },
-      ),
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: (settings) => Routes.generateRoute(settings),
+      initialRoute: '/',
     );
   }
 }

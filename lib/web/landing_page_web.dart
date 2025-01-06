@@ -1,4 +1,5 @@
 import 'package:claes_erik/components.dart';
+import 'package:claes_erik/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +13,6 @@ class LandingPageWeb extends StatefulWidget {
 }
 
 class _LandingPageWebState extends State<LandingPageWeb> {
-  final accentColor = Colors.lightBlueAccent;
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
@@ -24,10 +24,10 @@ class _LandingPageWebState extends State<LandingPageWeb> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 72,
-              backgroundColor: accentColor,
+              radius: 72.0,
+              backgroundColor: Globals.accentColor,
               child: CircleAvatar(
-                radius: 70,
+                radius: 70.0,
                 backgroundColor: Colors.white,
                 backgroundImage:
                     AssetImage("assets/Claes_foto_3_por_4-circle.png"),
@@ -44,11 +44,10 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     "assets/instagram.svg",
                     colorFilter:
                         ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    width: 35,
+                    width: 35.0,
                   ),
                   onPressed: () async {
-                    await launchUrl(
-                        Uri.parse("https://www.instagram.com/claeserikjr/"));
+                    await launchUrl(Uri.parse(Globals.instaURL));
                   },
                 ),
                 IconButton(
@@ -56,10 +55,10 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     "assets/github.svg",
                     colorFilter:
                         ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    width: 35,
+                    width: 35.0,
                   ),
                   onPressed: () async {
-                    await launchUrl(Uri.parse("https://github.com/ClaesErik/"));
+                    await launchUrl(Uri.parse(Globals.githubURL));
                   },
                 ),
                 IconButton(
@@ -67,11 +66,10 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     "assets/linkedin.svg",
                     colorFilter:
                         ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    width: 35,
+                    width: 35.0,
                   ),
                   onPressed: () async {
-                    await launchUrl(Uri.parse(
-                        "https://www.linkedin.com/in/claes-junior-9378a38a"));
+                    await launchUrl(Uri.parse(Globals.linkedinURL));
                   },
                 ),
               ],
@@ -90,15 +88,15 @@ class _LandingPageWebState extends State<LandingPageWeb> {
         title: Row(
           children: [
             Spacer(),
-            TabsWeb("Home", accentColor),
+            TabsWeb("Home", Globals.accentColor),
             Spacer(),
-            TabsWeb("Works", accentColor),
+            TabsWeb("Works", Globals.accentColor),
             Spacer(),
-            TabsWeb("Blog", accentColor),
+            TabsWeb("Blog", Globals.accentColor),
             Spacer(),
-            TabsWeb("About", accentColor),
+            TabsWeb("About", Globals.accentColor),
             Spacer(),
-            TabsWeb("Contact", accentColor),
+            TabsWeb("Contact", Globals.accentColor),
             Spacer(),
           ],
         ),
@@ -119,7 +117,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: accentColor,
+                        color: Globals.accentColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20.0),
                           topRight: Radius.circular(20.0),
@@ -161,7 +159,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 ),
                 CircleAvatar(
                   radius: 187.0,
-                  backgroundColor: accentColor,
+                  backgroundColor: Globals.accentColor,
                   child: CircleAvatar(
                     radius: 183.0,
                     backgroundColor: Colors.black,
@@ -195,75 +193,21 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   children: [
                     SansBold("About me", 40.0),
                     SizedBox(height: 15.0),
-                    Sans(
-                        "Hello! I'm Claes Erik, Flutter, React Native and Android developer",
-                        15),
-                    Sans(
-                        "I strive to ensure astounding performance with state of ",
-                        15),
-                    Sans("The art security for Android, IOS and Web ", 15.0),
+                    Sans(Globals.userIntro, 15),
+                    Sans(Globals.userIntro2, 15),
+                    Sans(Globals.userIntro3, 15.0),
                     SizedBox(height: 10.0),
                     Row(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: accentColor,
-                                style: BorderStyle.solid,
-                                width: 2.0),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          padding: EdgeInsets.all(7.0),
-                          child: Sans("Flutter", 15.0),
-                        ),
+                        AccentBoxSkills(text: "Flutter"),
                         SizedBox(width: 7.0),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: accentColor,
-                                style: BorderStyle.solid,
-                                width: 2.0),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          padding: EdgeInsets.all(7.0),
-                          child: Sans("Android", 15.0),
-                        ),
+                        AccentBoxSkills(text: "Android"),
                         SizedBox(width: 7.0),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: accentColor,
-                                style: BorderStyle.solid,
-                                width: 2.0),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          padding: EdgeInsets.all(7.0),
-                          child: Sans("Web", 15.0),
-                        ),
+                        AccentBoxSkills(text: "Web"),
                         SizedBox(width: 7.0),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: accentColor,
-                                style: BorderStyle.solid,
-                                width: 2.0),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          padding: EdgeInsets.all(7.0),
-                          child: Sans("Back-end", 15.0),
-                        ),
+                        AccentBoxSkills(text: "Back-end"),
                         SizedBox(width: 7.0),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: accentColor,
-                                style: BorderStyle.solid,
-                                width: 2.0),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          padding: EdgeInsets.all(7.0),
-                          child: Sans("Firebase", 15.0),
-                        ),
+                        AccentBoxSkills(text: "Firebase"),
                       ],
                     )
                   ],
@@ -283,23 +227,23 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    AnimatedCardWeb(
+                    AnimatedCard(
                         imagePath: "assets/webL.png",
                         text: "Web Development",
                         subtext: "(React and Flutter)",
-                        accentColor: accentColor),
-                    AnimatedCardWeb(
+                        accentColor: Globals.accentColor),
+                    AnimatedCard(
                         imagePath: "assets/app.png",
                         text: "App Development",
                         subtext: "(Android Native and Flutter)",
                         fit: BoxFit.contain,
                         reverse: true,
-                        accentColor: accentColor),
-                    AnimatedCardWeb(
+                        accentColor: Globals.accentColor),
+                    AnimatedCard(
                         imagePath: "assets/firebase.png",
                         text: "Back-end Development",
                         subtext: "(Firebase and JavaSpring)",
-                        accentColor: accentColor),
+                        accentColor: Globals.accentColor),
                   ],
                 )
               ],
@@ -320,14 +264,14 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     Column(
                       children: [
                         TextForm(
-                          accentColor: accentColor,
+                          accentColor: Globals.accentColor,
                           width: 350.0,
                           heading: "First Name",
                           hintext: "Please enter your first name",
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
-                            accentColor: accentColor,
+                            accentColor: Globals.accentColor,
                             heading: "Email",
                             width: 350.0,
                             hintext: "Please enter your email address")
@@ -336,14 +280,14 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                     Column(
                       children: [
                         TextForm(
-                          accentColor: accentColor,
+                          accentColor: Globals.accentColor,
                           heading: "Last Name",
                           width: 350.0,
                           hintext: "Please type you last name",
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
-                            accentColor: accentColor,
+                            accentColor: Globals.accentColor,
                             heading: "Phone Number",
                             width: 350.0,
                             hintext: "Please type your phone number"),
@@ -352,7 +296,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   ],
                 ),
                 TextForm(
-                  accentColor: accentColor,
+                  accentColor: Globals.accentColor,
                   heading: "Message",
                   width: widthDevice / 1.6,
                   hintext: "Please type your message",
@@ -365,7 +309,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: accentColor,
+                  color: Globals.accentColor,
                   child: SansBold("Submit", 20.0),
                   onPressed: () {},
                 )
