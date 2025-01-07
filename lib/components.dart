@@ -1,3 +1,4 @@
+import 'package:claes_erik/formTypes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -143,6 +144,7 @@ class TextForm extends StatelessWidget {
   final containersWidth;
   final hintext;
   final maxLines;
+  final formType;
 
   const TextForm(
       {super.key,
@@ -150,7 +152,8 @@ class TextForm extends StatelessWidget {
       @required this.text,
       @required this.containersWidth,
       @required this.hintext,
-      this.maxLines});
+      this.maxLines,
+      this.formType});
 
   @override
   Widget build(BuildContext context) {
@@ -162,9 +165,35 @@ class TextForm extends StatelessWidget {
         SizedBox(
           width: containersWidth,
           child: TextFormField(
+            validator: (text) {
+              switch (formType) {
+                case FormTypes.emailValue:
+                  if (!RegExp(r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,3}$',
+                          caseSensitive: false)
+                      .hasMatch(text.toString())) {
+                    return "email incorrect";
+                  }
+
+                case FormTypes.phoneNumberValue:
+                  if (!RegExp(r'^(\d{2})\D*(\d{5}|\d{4})\D*(\d{4})$',
+                          caseSensitive: false)
+                      .hasMatch(text.toString())) {
+                    return "phone incorrect";
+                  }
+
+                default:
+                  if (!RegExp('[a-zA-Z0-9]', caseSensitive: false)
+                      .hasMatch(text.toString())) {
+                    return "incorrect";
+                  }
+              }
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
-              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+              FilteringTextInputFormatter.allow(formType == "phoneNumber"
+                  ? RegExp('[0-9]')
+                  : RegExp('[\\s\\S]+')),
             ],
             maxLines: maxLines,
             decoration: InputDecoration(

@@ -282,10 +282,12 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
-                            accentColor: Globals.accentColor,
-                            text: "Email",
-                            containersWidth: 350.0,
-                            hintext: "Please enter your email address")
+                          accentColor: Globals.accentColor,
+                          text: "Email",
+                          containersWidth: 350.0,
+                          hintext: "Please enter your email address",
+                          formType: "email",
+                        )
                       ],
                     ),
                     Column(
@@ -298,10 +300,12 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                         ),
                         SizedBox(height: 15.0),
                         TextForm(
-                            accentColor: Globals.accentColor,
-                            text: "Phone Number",
-                            containersWidth: 350.0,
-                            hintext: "Please type your phone number"),
+                          accentColor: Globals.accentColor,
+                          text: "Phone Number",
+                          containersWidth: 350.0,
+                          hintext: "Please type your phone number",
+                          formType: "phoneNumber",
+                        ),
                       ],
                     )
                   ],
