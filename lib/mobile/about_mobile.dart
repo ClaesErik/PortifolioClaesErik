@@ -150,7 +150,7 @@ class _AboutMobileState extends State<AboutMobile> {
               ],
             ),
             Sans(
-                "I'm here to buuiild your presence online with state of the art of web.",
+                "I'm here to build your presence online with state of the art of web.",
                 15.0),
 
             //App development, third section
@@ -173,7 +173,7 @@ class _AboutMobileState extends State<AboutMobile> {
                 "Do you need a high-performance, responsive and beautiful app? Don't worry, I've got you covered.",
                 15.0),
 
-            //Mobile Development, fourth section
+            //Back-end Development, fourth section
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -190,7 +190,7 @@ class _AboutMobileState extends State<AboutMobile> {
               ],
             ),
             Sans(
-                "Do you want your back-end to be highly scalabel and secure? Let's have a conversation on how I can help you with that.",
+                "Do you want your back-end to be highly scalable and secure? Let's have a conversation on how I can help you with that.",
                 15.0),
           ],
         ),
