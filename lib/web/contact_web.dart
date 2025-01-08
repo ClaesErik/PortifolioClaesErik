@@ -1,8 +1,6 @@
 import 'package:claes_erik/components.dart';
 import 'package:claes_erik/res/globals.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ContactWeb extends StatefulWidget {
   const ContactWeb({super.key});
@@ -16,64 +14,7 @@ class _ContactWebState extends State<ContactWeb> {
   Widget build(BuildContext context) {
     var widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 72.0,
-              backgroundColor: Globals.accentColor,
-              child: CircleAvatar(
-                radius: 70.0,
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage(Globals.avatarCircleImage),
-              ),
-            ),
-            SizedBox(height: 15.0),
-            SansBold("Claes Erik", 30.0),
-            SizedBox(height: 15.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: SvgPicture.asset(
-                    Globals.instagramIcon,
-                    colorFilter:
-                        ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    width: 35.0,
-                  ),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse(Globals.instaURL));
-                  },
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    Globals.githubIcon,
-                    colorFilter:
-                        ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    width: 35.0,
-                  ),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse(Globals.githubURL));
-                  },
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    Globals.linkedinIcon,
-                    colorFilter:
-                        ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    width: 35.0,
-                  ),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse(Globals.linkedinURL));
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
+      drawer: WebDrawer(),
       backgroundColor: Colors.white,
       body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -81,7 +22,10 @@ class _ContactWebState extends State<ContactWeb> {
               SliverAppBar(
                 expandedHeight: 650.0,
                 backgroundColor: Colors.white,
-                iconTheme: IconThemeData(size: 25.0, color: Colors.black),
+                iconTheme: IconThemeData(
+                  size: 25.0,
+                  color: Colors.black,
+                ),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Image.asset(
                     "assets/contact_image.jpg",

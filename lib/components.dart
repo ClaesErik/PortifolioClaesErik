@@ -3,7 +3,9 @@ import 'package:claes_erik/utils/responsive_layout_builder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'res/globals.dart';
 
@@ -264,6 +266,69 @@ class _BlogPostState extends State<BlogPost> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class WebDrawer extends StatelessWidget {
+  const WebDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 72.0,
+            backgroundColor: Globals.accentColor,
+            child: CircleAvatar(
+              radius: 70.0,
+              backgroundColor: Colors.white,
+              backgroundImage: AssetImage(Globals.avatarCircleImage),
+            ),
+          ),
+          SizedBox(height: 15.0),
+          SansBold("Claes Erik", 30.0),
+          SizedBox(height: 15.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                icon: SvgPicture.asset(
+                  Globals.instagramIcon,
+                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  width: 35.0,
+                ),
+                onPressed: () async {
+                  await launchUrl(Uri.parse(Globals.instaURL));
+                },
+              ),
+              IconButton(
+                icon: SvgPicture.asset(
+                  Globals.githubIcon,
+                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  width: 35.0,
+                ),
+                onPressed: () async {
+                  await launchUrl(Uri.parse(Globals.githubURL));
+                },
+              ),
+              IconButton(
+                icon: SvgPicture.asset(
+                  Globals.linkedinIcon,
+                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  width: 35.0,
+                ),
+                onPressed: () async {
+                  await launchUrl(Uri.parse(Globals.linkedinURL));
+                },
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
