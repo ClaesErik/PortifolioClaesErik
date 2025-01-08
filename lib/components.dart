@@ -1,4 +1,4 @@
-import 'package:claes_erik/formTypes.dart';
+import 'package:claes_erik/form_types.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
