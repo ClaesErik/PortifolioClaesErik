@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
-import '../globals.dart';
+import '../res/globals.dart';
 
 class BlogMobile extends StatefulWidget {
   const BlogMobile({super.key});
@@ -91,7 +90,6 @@ class _BlogMobileState extends State<BlogMobile> {
                 color: Colors.black,
               ),
               flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
                 title: Container(
                   decoration: BoxDecoration(
                     color: Colors.black,
@@ -125,70 +123,5 @@ class _BlogMobileState extends State<BlogMobile> {
         ),
       ),
     ));
-  }
-}
-
-class BlogPost extends StatefulWidget {
-  const BlogPost({super.key});
-
-  @override
-  State<BlogPost> createState() => _BlogPostState();
-}
-
-class _BlogPostState extends State<BlogPost> {
-  bool expand = false;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-      child: Container(
-        padding: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-            border: Border.all(
-          style: BorderStyle.solid,
-          width: 1.0,
-          color: Colors.black,
-        )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                  child: AbelCustom(
-                    text: "Who is Dash",
-                    size: 25.0,
-                    color: Colors.white,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      expand = !expand;
-                    });
-                  },
-                  icon: Icon(Icons.arrow_drop_down_circle_outlined),
-                  color: Colors.black,
-                ),
-              ],
-            ),
-            SizedBox(height: 7.0),
-            Text(
-              "Flutter has become my go-to framework for building high-quality, cross-platform applications. Its efficiency, flexibility, and performance have enabled me to bring my ideas to life with ease and speed. I'm excited to see how Flutter continues to evolve and empower developers to create amazing experiences for users across all platforms.",
-              style: GoogleFonts.openSans(fontSize: 15.0),
-              maxLines: expand == true ? null : 3,
-              overflow:
-                  expand == true ? TextOverflow.visible : TextOverflow.ellipsis,
-            )
-          ],
-        ),
-      ),
-    );
   }
 }

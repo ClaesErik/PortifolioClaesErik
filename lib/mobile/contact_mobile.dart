@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
-import '../globals.dart';
+import '../res/globals.dart';
 
 class ContactMobile extends StatefulWidget {
   const ContactMobile({super.key});

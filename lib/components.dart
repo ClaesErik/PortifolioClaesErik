@@ -1,10 +1,11 @@
-import 'package:claes_erik/form_types.dart';
+import 'package:claes_erik/utils/form_types.dart';
+import 'package:claes_erik/utils/responsive_layout_builder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'globals.dart';
+import 'res/globals.dart';
 
 class TabsWeb extends StatefulWidget {
   final title;
@@ -105,6 +106,170 @@ class _TabsMobileState extends State<TabsMobile> {
   }
 }
 
+class AnimatedCard extends StatefulWidget {
+  final imagePath;
+  final text;
+  final subtext;
+  final fit;
+  final reverse;
+  final accentColor;
+  final height;
+  final width;
+
+  const AnimatedCard({
+    super.key,
+    @required this.imagePath,
+    this.text,
+    this.subtext,
+    this.fit,
+    this.reverse,
+    @required this.accentColor,
+    this.height,
+    this.width,
+  });
+
+  @override
+  State<AnimatedCard> createState() => _AnimatedCardState();
+}
+
+class _AnimatedCardState extends State<AnimatedCard>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 4),
+  )..repeat(reverse: true);
+
+  late final Animation<Offset> _animation = Tween(
+    begin: widget.reverse == true ? Offset(0.0, 0.08) : Offset.zero,
+    end: widget.reverse == true ? Offset.zero : Offset(0.0, 0.08),
+  ).animate(_controller);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: _animation,
+      child: Card(
+        elevation: 30,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          side: BorderSide(color: widget.accentColor),
+        ),
+        shadowColor: widget.accentColor,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                widget.imagePath,
+                height: widget.height ?? 200.0,
+                width: widget.width ?? 200.0,
+                fit: widget.fit,
+              ),
+              SizedBox(height: 10.0),
+              widget.text == null ? SizedBox() : SansBold(widget.text, 15.0),
+              widget.text == null ? SizedBox() : SansBold(widget.subtext, 12.0),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AccentBoxSkills extends StatelessWidget {
+  final text;
+  const AccentBoxSkills({super.key, @required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: Globals.accentColor, style: BorderStyle.solid, width: 2.0),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      padding: EdgeInsets.all(7.0),
+      child: Sans(text, 15.0),
+    );
+  }
+}
+
+class BlogPost extends StatefulWidget {
+  const BlogPost({super.key});
+
+  @override
+  State<BlogPost> createState() => _BlogPostState();
+}
+
+class _BlogPostState extends State<BlogPost> {
+  bool expand = false;
+  @override
+  Widget build(BuildContext context) {
+    bool isMobileDevice = ResponsiveLayoutBuilder.isMobile(context);
+    return Padding(
+      padding: isMobileDevice
+          ? const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0)
+          : const EdgeInsets.only(left: 70.0, right: 70.0, top: 40.0),
+      child: Container(
+        padding: EdgeInsets.all(isMobileDevice ? 10.0 : 20.0),
+        decoration: BoxDecoration(
+            border: Border.all(
+          style: BorderStyle.solid,
+          width: 1.0,
+          color: Colors.black,
+        )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(3.0),
+                  ),
+                  child: AbelCustom(
+                    text: "Who is Dash",
+                    size: 25.0,
+                    color: Colors.white,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      expand = !expand;
+                    });
+                  },
+                  icon: Icon(Icons.arrow_drop_down_circle_outlined),
+                  color: Colors.black,
+                ),
+              ],
+            ),
+            SizedBox(height: 7.0),
+            Text(
+              "Flutter has become my go-to framework for building high-quality, cross-platform applications. Its efficiency, flexibility, and performance have enabled me to bring my ideas to life with ease and speed. I'm excited to see how Flutter continues to evolve and empower developers to create amazing experiences for users across all platforms.",
+              style: GoogleFonts.openSans(fontSize: 15.0),
+              maxLines: expand == true ? null : 3,
+              overflow:
+                  expand == true ? TextOverflow.visible : TextOverflow.ellipsis,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+///Fonts widgets
 class SansBold extends StatelessWidget {
   final text;
   final size;
@@ -227,102 +392,6 @@ class TextForm extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty('accentColor', accentColor));
-  }
-}
-
-class AnimatedCard extends StatefulWidget {
-  final imagePath;
-  final text;
-  final subtext;
-  final fit;
-  final reverse;
-  final accentColor;
-  final height;
-  final width;
-
-  const AnimatedCard({
-    super.key,
-    @required this.imagePath,
-    this.text,
-    this.subtext,
-    this.fit,
-    this.reverse,
-    @required this.accentColor,
-    this.height,
-    this.width,
-  });
-
-  @override
-  State<AnimatedCard> createState() => _AnimatedCardState();
-}
-
-class _AnimatedCardState extends State<AnimatedCard>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(seconds: 4),
-  )..repeat(reverse: true);
-
-  late final Animation<Offset> _animation = Tween(
-    begin: widget.reverse == true ? Offset(0.0, 0.08) : Offset.zero,
-    end: widget.reverse == true ? Offset.zero : Offset(0.0, 0.08),
-  ).animate(_controller);
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animation,
-      child: Card(
-        elevation: 30,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          side: BorderSide(color: widget.accentColor),
-        ),
-        shadowColor: widget.accentColor,
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                widget.imagePath,
-                height: widget.height ?? 200.0,
-                width: widget.width ?? 200.0,
-                fit: widget.fit,
-              ),
-              SizedBox(height: 10.0),
-              widget.text == null ? SizedBox() : SansBold(widget.text, 15.0),
-              widget.text == null ? SizedBox() : SansBold(widget.subtext, 12.0),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-///some small components
-class AccentBoxSkills extends StatelessWidget {
-  final text;
-  const AccentBoxSkills({super.key, @required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: Globals.accentColor, style: BorderStyle.solid, width: 2.0),
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      padding: EdgeInsets.all(7.0),
-      child: Sans(text, 15.0),
-    );
   }
 }
 

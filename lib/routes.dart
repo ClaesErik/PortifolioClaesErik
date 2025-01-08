@@ -2,7 +2,7 @@ import 'package:claes_erik/mobile/about_mobile.dart';
 import 'package:claes_erik/mobile/blog_mobile.dart';
 import 'package:claes_erik/mobile/contact_mobile.dart';
 import 'package:claes_erik/mobile/landing_page_mobile.dart';
-import 'package:claes_erik/responsive_layout_builder.dart';
+import 'package:claes_erik/utils/responsive_layout_builder.dart';
 import 'package:claes_erik/web/about_web.dart';
 import 'package:claes_erik/web/blog_web.dart';
 import 'package:claes_erik/web/contact_web.dart';
