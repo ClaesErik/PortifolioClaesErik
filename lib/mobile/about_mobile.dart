@@ -88,7 +88,111 @@ class _AboutMobileState extends State<AboutMobile> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: ListView(
-          children: [],
+          children: [
+            ///Introduction, first section
+            CircleAvatar(
+              radius: 117.0,
+              backgroundColor: Globals.accentColor,
+              child: CircleAvatar(
+                radius: 113.0,
+                backgroundColor: Colors.black,
+                child: CircleAvatar(
+                  radius: 110.0,
+                  backgroundColor: Colors.white,
+                  child: Image.asset(
+                    Globals.avatarCircleImage,
+                    filterQuality: FilterQuality.high,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SansBold("About Me", 35.0),
+                  SizedBox(height: 10.0),
+                  Sans(Globals.userIntro, 15.0),
+                  Sans(Globals.userIntro2, 15.0),
+                  Sans(Globals.userIntro3, 15.0),
+                  SizedBox(height: 10.0),
+                  Wrap(
+                    spacing: 7.0,
+                    runSpacing: 7.0,
+                    children: [
+                      AccentBoxSkills(text: "Flutter"),
+                      AccentBoxSkills(text: "Android"),
+                      AccentBoxSkills(text: "Web"),
+                      AccentBoxSkills(text: "Back-end"),
+                      AccentBoxSkills(text: "Firebase"),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 40.0),
+
+            //Web development, second section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AnimatedCard(
+                  accentColor: Globals.accentColor,
+                  imagePath: Globals.webImagePath,
+                  width: 200.0,
+                ),
+                SizedBox(height: 30.0),
+                SansBold("Web Development", 20.0),
+                SizedBox(height: 10.0),
+              ],
+            ),
+            Sans(
+                "I'm here to buuiild your presence online with state of the art of web.",
+                15.0),
+
+            //App development, third section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20.0),
+                AnimatedCard(
+                  imagePath: Globals.appExImagePath,
+                  accentColor: Globals.accentColor,
+                  width: 200.0,
+                  reverse: true,
+                ),
+                SizedBox(height: 30.0),
+                SansBold("App development", 20.0),
+                SizedBox(height: 10.0),
+              ],
+            ),
+            Sans(
+                "Do you need a high-performance, responsive and beautiful app? Don't worry, I've got you covered.",
+                15.0),
+
+            //Mobile Development, fourth section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20.0),
+                AnimatedCard(
+                  imagePath: Globals.firebaseImagePath,
+                  accentColor: Globals.accentColor,
+                  width: 200.0,
+                  reverse: true,
+                ),
+                SizedBox(height: 30.0),
+                SansBold("Back-end development", 20.0),
+                SizedBox(height: 10.0),
+              ],
+            ),
+            Sans(
+                "Do you want your back-end to be highly scalabel and secure? Let's have a conversation on how I can help you with that.",
+                15.0),
+          ],
         ),
       ),
     ));

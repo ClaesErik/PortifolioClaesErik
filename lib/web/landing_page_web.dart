@@ -197,6 +197,7 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                 Image.asset(
                   "assets/web.jpg",
                   height: widthDevice / 1.9,
+                  filterQuality: FilterQuality.high,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,19 +240,19 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     AnimatedCard(
-                        imagePath: "assets/webL.png",
+                        imagePath: Globals.webImagePath,
                         text: "Web Development",
                         subtext: "(React and Flutter)",
                         accentColor: Globals.accentColor),
                     AnimatedCard(
-                        imagePath: "assets/app.png",
+                        imagePath: Globals.appExImagePath,
                         text: "App Development",
                         subtext: "(Android Native and Flutter)",
                         fit: BoxFit.contain,
                         reverse: true,
                         accentColor: Globals.accentColor),
                     AnimatedCard(
-                        imagePath: "assets/firebase.png",
+                        imagePath: Globals.firebaseImagePath,
                         text: "Back-end Development",
                         subtext: "(Firebase and JavaSpring)",
                         accentColor: Globals.accentColor),

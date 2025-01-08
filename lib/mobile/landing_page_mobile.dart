@@ -35,7 +35,8 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
                   shape: BoxShape.circle,
                   border: Border.all(width: 2.0, color: Colors.black),
                 ),
-                child: Image.asset('assets/perfil-circle.png'),
+                child: Image.asset('assets/perfil-circle.png',
+                    filterQuality: FilterQuality.high),
               ),
             ),
             TabsMobile(text: "Home", route: '/'),
@@ -189,7 +190,7 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
             children: [
               SansBold("What I Do", 35.0),
               AnimatedCard(
-                imagePath: "assets/webL.png",
+                imagePath: Globals.webImagePath,
                 text: "Web Development",
                 subtext: "(React and Flutter)",
                 accentColor: Globals.accentColor,
@@ -197,7 +198,7 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
               ),
               SizedBox(height: 35.0),
               AnimatedCard(
-                imagePath: "assets/app.png",
+                imagePath: Globals.appExImagePath,
                 text: "App Development",
                 subtext: "(Android Native and Flutter)",
                 fit: BoxFit.contain,
@@ -207,7 +208,7 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
               ),
               SizedBox(height: 35.0),
               AnimatedCard(
-                imagePath: "assets/firebase.png",
+                imagePath: Globals.firebaseImagePath,
                 text: "Back-end Development",
                 subtext: "(Firebase and JavaSpring)",
                 accentColor: Globals.accentColor,
