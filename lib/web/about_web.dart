@@ -250,7 +250,7 @@ class _AboutWebState extends State<AboutWeb> {
               )
             ],
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 90.0),
         ],
       ),
     );
