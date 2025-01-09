@@ -70,12 +70,12 @@ class _WorksWebState extends State<WorksWeb> {
           children: [
             Padding(
                 padding: EdgeInsets.only(
-                    left: 15.0, right: 15.0, bottom: 30.0, top: 30.0),
+                    left: 5.0, right: 5.0, bottom: 30.0, top: 30.0),
                 child: Column(
                   children: [
                     SansBold("Works", 30.0),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         AnimatedCard(
                             imagePath: "assets/portfolio_claes_screenshot.png",

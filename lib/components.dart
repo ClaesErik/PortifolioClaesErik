@@ -10,14 +10,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'res/globals.dart';
 
 class TabsWeb extends StatefulWidget {
-  final title;
-  final route;
-  final accentColor;
+  final String title;
+  final String route;
+  final Color? accentColor;
   const TabsWeb({
     super.key,
-    this.title,
+    required this.title,
     this.accentColor,
-    this.route,
+    required this.route,
   });
 
   @override
@@ -38,13 +38,11 @@ class _TabsWebState extends State<TabsWeb> {
           setState(() {
             isSelected = true;
           });
-          print("Entered");
         },
         onExit: (_) {
           setState(() {
             isSelected = false;
           });
-          print("Exit");
         },
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 100),
@@ -53,7 +51,7 @@ class _TabsWebState extends State<TabsWeb> {
               ? GoogleFonts.roboto(
                   shadows: [
                     Shadow(
-                      color: widget.accentColor,
+                      color: widget.accentColor ?? Colors.black,
                       offset: Offset(8, -8),
                     ),
                   ],
@@ -78,9 +76,9 @@ class _TabsWebState extends State<TabsWeb> {
 }
 
 class TabsMobile extends StatefulWidget {
-  final text;
-  final route;
-  const TabsMobile({super.key, @required this.text, @required this.route});
+  final String text;
+  final String route;
+  const TabsMobile({super.key, required this.text, required this.route});
 
   @override
   State<TabsMobile> createState() => _TabsMobileState();
@@ -109,23 +107,23 @@ class _TabsMobileState extends State<TabsMobile> {
 }
 
 class AnimatedCard extends StatefulWidget {
-  final imagePath;
-  final text;
-  final subtext;
-  final fit;
-  final reverse;
-  final accentColor;
-  final height;
-  final width;
+  final String imagePath;
+  final String? text;
+  final String? subtext;
+  final BoxFit? fit;
+  final bool? reverse;
+  final Color accentColor;
+  final double? height;
+  final double? width;
 
   const AnimatedCard({
     super.key,
-    @required this.imagePath,
+    required this.imagePath,
     this.text,
     this.subtext,
     this.fit,
     this.reverse,
-    @required this.accentColor,
+    required this.accentColor,
     this.height,
     this.width,
   });
@@ -175,8 +173,10 @@ class _AnimatedCardState extends State<AnimatedCard>
                 fit: widget.fit,
               ),
               SizedBox(height: 10.0),
-              widget.text == null ? SizedBox() : SansBold(widget.text, 15.0),
-              widget.text == null ? SizedBox() : SansBold(widget.subtext, 12.0),
+              widget.text == null ? SizedBox() : SansBold(widget.text!, 15.0),
+              widget.text == null
+                  ? SizedBox()
+                  : SansBold(widget.subtext!, 12.0),
             ],
           ),
         ),
@@ -186,8 +186,8 @@ class _AnimatedCardState extends State<AnimatedCard>
 }
 
 class AccentBoxSkills extends StatelessWidget {
-  final text;
-  const AccentBoxSkills({super.key, @required this.text});
+  final String text;
+  const AccentBoxSkills({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -336,8 +336,8 @@ class WebDrawer extends StatelessWidget {
 
 ///Fonts widgets
 class SansBold extends StatelessWidget {
-  final text;
-  final size;
+  final String text;
+  final double size;
   const SansBold(this.text, this.size, {super.key});
 
   @override
@@ -353,8 +353,8 @@ class SansBold extends StatelessWidget {
 }
 
 class Sans extends StatelessWidget {
-  final text;
-  final size;
+  final String text;
+  final double size;
   const Sans(this.text, this.size, {super.key});
 
   @override
@@ -370,19 +370,19 @@ class Sans extends StatelessWidget {
 }
 
 class TextForm extends StatelessWidget {
-  final accentColor;
-  final text;
-  final containersWidth;
-  final hintext;
-  final maxLines;
-  final formType;
+  final Color accentColor;
+  final String text;
+  final double containersWidth;
+  final String hintext;
+  final int? maxLines;
+  final String? formType;
 
   const TextForm(
       {super.key,
-      @required this.accentColor,
-      @required this.text,
-      @required this.containersWidth,
-      @required this.hintext,
+      required this.accentColor,
+      required this.text,
+      required this.containersWidth,
+      required this.hintext,
       this.maxLines,
       this.formType});
 
@@ -462,14 +462,14 @@ class TextForm extends StatelessWidget {
 }
 
 class AbelCustom extends StatelessWidget {
-  final text;
-  final size;
-  final color;
-  final fontWeight;
+  final String text;
+  final double size;
+  final Color? color;
+  final FontWeight? fontWeight;
   const AbelCustom(
       {super.key,
-      @required this.text,
-      @required this.size,
+      required this.text,
+      required this.size,
       this.color,
       this.fontWeight});
 
