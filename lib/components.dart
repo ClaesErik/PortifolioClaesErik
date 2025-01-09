@@ -115,6 +115,7 @@ class AnimatedCard extends StatefulWidget {
   final Color accentColor;
   final double? height;
   final double? width;
+  final double paddingAll;
 
   const AnimatedCard({
     super.key,
@@ -126,6 +127,7 @@ class AnimatedCard extends StatefulWidget {
     required this.accentColor,
     this.height,
     this.width,
+    this.paddingAll = 15.0,
   });
 
   @override
@@ -162,7 +164,7 @@ class _AnimatedCardState extends State<AnimatedCard>
         ),
         shadowColor: widget.accentColor,
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(widget.paddingAll),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
