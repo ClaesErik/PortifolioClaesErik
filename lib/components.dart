@@ -263,7 +263,7 @@ class _BlogPostState extends State<BlogPost> {
               maxLines: expand == true ? null : 3,
               overflow:
                   expand == true ? TextOverflow.visible : TextOverflow.ellipsis,
-            )
+            ),
           ],
         ),
       ),
@@ -364,6 +364,7 @@ class Sans extends StatelessWidget {
       style: GoogleFonts.openSans(
         fontSize: size,
       ),
+      softWrap: true,
     );
   }
 }

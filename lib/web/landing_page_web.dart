@@ -145,8 +145,8 @@ class _LandingPageWebState extends State<LandingPageWeb> {
                   children: [
                     SansBold("About me", 40.0),
                     SizedBox(height: 15.0),
-                    Sans(Globals.userIntro, 15),
-                    Sans(Globals.userIntro2, 15),
+                    Sans(Globals.userIntro, 15.0),
+                    Sans(Globals.userIntro2, 15.0),
                     Sans(Globals.userIntro3, 15.0),
                     SizedBox(height: 10.0),
                     Row(
