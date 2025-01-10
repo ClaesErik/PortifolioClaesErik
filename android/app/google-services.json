@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "833054478570",
+    "project_id": "portifolio-claes-erik",
+    "storage_bucket": "portifolio-claes-erik.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833054478570:android:a7e6c89d655d238f814793",
+        "android_client_info": {
+          "package_name": "com.portifolioclaeserik.claes_erik"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeT_LAwy5Y5tbRVZaf7Y1rQWznqz4q49E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
