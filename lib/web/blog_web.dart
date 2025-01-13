@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../components.dart';
@@ -11,6 +12,26 @@ class BlogWeb extends StatefulWidget {
 }
 
 class _BlogWebState extends State<BlogWeb> {
+  List title = ["Who is Dash?", "Who is Dash 1?"];
+  List body = ["Whell, we can all read about it in Google", "Google it."];
+
+  void article() async {
+    await FirebaseFirestore.instance.collection('articles').get().then(
+      (querySnapshot) {
+        querySnapshot.docs.reversed.forEach((doc) {
+          print(doc.data()["title"]);
+        });
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+  }
+
+  @override
+  void initState() {
+    article();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,14 +102,26 @@ class _BlogWebState extends State<BlogWeb> {
             )
           ];
         },
-        body: ListView(
-          children: [
-            BlogPost(),
-            BlogPost(),
-            BlogPost(),
-            BlogPost(),
-          ],
-        ),
+        body: StreamBuilder<QuerySnapshot>(
+            stream:
+                FirebaseFirestore.instance.collection('articles').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      DocumentSnapshot documentSnapshot =
+                          snapshot.data!.docs[index];
+                      return BlogPost(
+                          title: documentSnapshot['title'],
+                          body: documentSnapshot['body']);
+                    });
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
       ),
     );
   }

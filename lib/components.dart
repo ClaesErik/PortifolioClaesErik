@@ -206,7 +206,9 @@ class AccentBoxSkills extends StatelessWidget {
 }
 
 class BlogPost extends StatefulWidget {
-  const BlogPost({super.key});
+  final String title;
+  final String body;
+  const BlogPost({super.key, required this.title, required this.body});
 
   @override
   State<BlogPost> createState() => _BlogPostState();
@@ -242,7 +244,7 @@ class _BlogPostState extends State<BlogPost> {
                     borderRadius: BorderRadius.circular(3.0),
                   ),
                   child: AbelCustom(
-                    text: "Who is Dash",
+                    text: widget.title.toString(),
                     size: 25.0,
                     color: Colors.white,
                   ),
@@ -260,7 +262,7 @@ class _BlogPostState extends State<BlogPost> {
             ),
             SizedBox(height: 7.0),
             Text(
-              "Flutter has become my go-to framework for building high-quality, cross-platform applications. Its efficiency, flexibility, and performance have enabled me to bring my ideas to life with ease and speed. I'm excited to see how Flutter continues to evolve and empower developers to create amazing experiences for users across all platforms.",
+              widget.body.toString(),
               style: GoogleFonts.openSans(fontSize: 15.0),
               maxLines: expand == true ? null : 3,
               overflow:
