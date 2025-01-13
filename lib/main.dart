@@ -6,12 +6,11 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  usePathUrlStrategy();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  usePathUrlStrategy();
   runApp(const MyApp());
 }
 

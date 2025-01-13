@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
@@ -17,25 +18,26 @@ class _BlogMobileState extends State<BlogMobile> {
   // List title = ["Who is Dash?", "Who is Dash 1?"];
   // List body = ["Well, we can all read about it in Google", "Google it."];
 
-  void article() async {
-    await FirebaseFirestore.instance.collection('articles').get().then(
-      (querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-          print(doc.data()["title"]);
-        });
-      },
-      onError: (e) => print("Error completing: $e"),
-    );
-  }
-
-  void streamArticle() async {
-    await for (var snapshot
-        in FirebaseFirestore.instance.collection('articles').snapshots()) {
-      for (var title in snapshot.docs) {
-        print(title.data()['title']);
-      }
-    }
-  }
+  // void article() async {
+  //   await FirebaseFirestore.instance.collection('articles').get().then(
+  //     (querySnapshot) {
+  //       querySnapshot.docs.forEach((doc) {
+  //         print(doc.data()["title"]);
+  //       });
+  //     },
+  //     onError: (e) => print("Error completing: $e"),
+  //   );
+  // }
+  //
+  // void streamArticle() async {
+  //   var logger = Logger();
+  //   await for (var snapshot
+  //       in FirebaseFirestore.instance.collection('articles').snapshots()) {
+  //     for (var title in snapshot.docs) {
+  //       logger.d(title.data()['title']);
+  //     }
+  //   }
+  // }
 
   // @override
   // void initState() {
