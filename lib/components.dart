@@ -1,10 +1,12 @@
 import 'package:claes_erik/utils/form_types.dart';
 import 'package:claes_erik/utils/responsive_layout_builder.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'res/globals.dart';
@@ -377,18 +379,22 @@ class TextForm extends StatelessWidget {
   final Color accentColor;
   final String text;
   final double containersWidth;
-  final String hintext;
+  final String hintText;
   final int? maxLines;
-  final String? formType;
+  final FormTypes? formType;
+  final TextEditingController? controller;
+  // final validator;
 
-  const TextForm(
-      {super.key,
-      required this.accentColor,
-      required this.text,
-      required this.containersWidth,
-      required this.hintext,
-      this.maxLines,
-      this.formType});
+  const TextForm({
+    super.key,
+    required this.accentColor,
+    required this.text,
+    required this.containersWidth,
+    required this.hintText,
+    this.maxLines,
+    this.formType,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -400,28 +406,44 @@ class TextForm extends StatelessWidget {
         SizedBox(
           width: containersWidth,
           child: TextFormField(
+            controller: controller,
             validator: (text) {
               switch (formType) {
-                case FormTypes.emailValue:
-                  if (!RegExp(r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,3}$',
+                case FormTypes.firstName:
+                  if (text.toString().isEmpty) {
+                    return "First name is required";
+                  }
+                case FormTypes.email:
+                  if (text.toString().isEmpty) {
+                    return "Email is required";
+                  } else if (!RegExp(
+                          r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,3}$',
                           caseSensitive: false)
                       .hasMatch(text.toString())) {
                     return "email incorrect";
                   }
 
-                case FormTypes.phoneNumberValue:
-                  if (!RegExp(r'^(\d{2})\D*(\d{5}|\d{4})\D*(\d{4})$',
-                          caseSensitive: false)
-                      .hasMatch(text.toString())) {
+                case FormTypes.phoneNumber:
+                  if (text.toString().isNotEmpty &&
+                      !RegExp(r'^(\d{2})\D*(\d{5}|\d{4})\D*(\d{4})$',
+                              caseSensitive: false)
+                          .hasMatch(text.toString())) {
                     return "phone incorrect";
                   }
 
+                case FormTypes.message:
+                  if (text.toString().isEmpty) {
+                    return "Message is required";
+                  }
+
                 default:
-                  if (!RegExp('[a-zA-Z0-9]', caseSensitive: false)
-                      .hasMatch(text.toString())) {
-                    return "incorrect";
+                  if (text.toString().isNotEmpty &&
+                      !RegExp('[a-zA-Z0-9]', caseSensitive: false)
+                          .hasMatch(text.toString())) {
+                    return "incorrect, type only letters and numbers";
                   }
               }
+              return null;
             },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             inputFormatters: [
@@ -432,10 +454,16 @@ class TextForm extends StatelessWidget {
             ],
             maxLines: maxLines,
             decoration: InputDecoration(
-              focusedErrorBorder: OutlineInputBorder(
+              errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red),
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15.0),
                 ),
               ),
               enabledBorder: OutlineInputBorder(
@@ -448,7 +476,7 @@ class TextForm extends StatelessWidget {
                 borderSide: BorderSide(color: accentColor, width: 2.0),
                 borderRadius: BorderRadius.all(Radius.circular(15.0)),
               ),
-              hintText: hintext,
+              hintText: hintText,
               hintStyle:
                   GoogleFonts.poppins(fontSize: 14.0, color: Colors.grey),
             ),
@@ -488,4 +516,33 @@ class AbelCustom extends StatelessWidget {
       ),
     );
   }
+}
+
+class AddDataFirestore {
+  var logger = Logger();
+  CollectionReference response =
+      FirebaseFirestore.instance.collection('messages');
+  Future<void> addResponse(final firstName, final lastName, final email,
+      final phoneNumber, final message) {
+    return response
+        .add({
+          'first name': firstName,
+          'last name': lastName,
+          'email': email,
+          'phone number': phoneNumber,
+          'message': message,
+        })
+        .then((value) => logger.d('Success'))
+        .catchError((error) => logger.e(error));
+  }
+}
+
+Future DialogError(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            title: SansBold("Message Submited", 20.0),
+          ));
 }

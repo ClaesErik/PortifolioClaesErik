@@ -2,7 +2,10 @@ import 'package:claes_erik/components.dart';
 import 'package:claes_erik/res/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/form_types.dart';
 
 class LandingPageMobile extends StatefulWidget {
   const LandingPageMobile({super.key});
@@ -12,6 +15,14 @@ class LandingPageMobile extends StatefulWidget {
 }
 
 class _LandingPageMobileState extends State<LandingPageMobile> {
+  var logger = Logger();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     var widthDevice = MediaQuery.of(context).size.width;
@@ -219,53 +230,83 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
           SizedBox(height: 90.0),
 
           /// Contact Me
-          Wrap(
-            runSpacing: 20.0,
-            spacing: 20.0,
-            alignment: WrapAlignment.center,
-            children: [
-              SansBold("Contact Me", 35.0),
-              SizedBox(height: 15.0),
-              TextForm(
+          Form(
+            key: formKey,
+            child: Wrap(
+              runSpacing: 20.0,
+              spacing: 20.0,
+              alignment: WrapAlignment.center,
+              children: [
+                SansBold("Contact Me", 35.0),
+                SizedBox(height: 15.0),
+                TextForm(
                   accentColor: Globals.accentColor,
                   text: "First Name",
                   containersWidth: widthDevice / 1.4,
-                  hintext: "Please type your first name"),
-              TextForm(
+                  hintText: "Please type your first name",
+                  controller: _firstNameController,
+                  formType: FormTypes.firstName,
+                ),
+                TextForm(
                   accentColor: Globals.accentColor,
                   text: "Last Name",
                   containersWidth: widthDevice / 1.4,
-                  hintext: "Please type your last name"),
-              TextForm(
+                  hintText: "Please type your last name",
+                  controller: _lastNameController,
+                ),
+                TextForm(
                   accentColor: Globals.accentColor,
                   text: "Email",
                   containersWidth: widthDevice / 1.4,
-                  hintext: "Please type your email address"),
-              TextForm(
+                  hintText: "Please type your email address",
+                  formType: FormTypes.email,
+                  controller: _emailController,
+                ),
+                TextForm(
                   accentColor: Globals.accentColor,
                   text: "Phone number",
                   containersWidth: widthDevice / 1.4,
-                  hintext: "Please type your phone number"),
-              TextForm(
+                  hintText: "Please type your phone number",
+                  formType: FormTypes.phoneNumber,
+                  controller: _phoneController,
+                ),
+                TextForm(
                   accentColor: Globals.accentColor,
                   text: "Message",
                   containersWidth: widthDevice / 1.4,
-                  hintext: "Please type our first name",
-                  maxLines: 10),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 90.0),
-                child: MaterialButton(
-                  onPressed: () {},
-                  elevation: 20.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  height: 60.0,
-                  minWidth: widthDevice / 2.2,
-                  color: Globals.accentColor,
-                  child: SansBold("Submit", 20.0),
+                  hintText: "Please type your message",
+                  maxLines: 10,
+                  formType: FormTypes.message,
+                  controller: _messageController,
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 90.0),
+                  child: MaterialButton(
+                    onPressed: () async {
+                      logger.d(_firstNameController.text);
+                      final addData = AddDataFirestore();
+                      if (formKey.currentState!.validate()) {
+                        await addData.addResponse(
+                            _firstNameController.text,
+                            _lastNameController.text,
+                            _emailController.text,
+                            _phoneController.text,
+                            _messageController.text);
+                        formKey.currentState!.reset();
+                        DialogError(context);
+                      }
+                    },
+                    elevation: 20.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    height: 60.0,
+                    minWidth: widthDevice / 2.2,
+                    color: Globals.accentColor,
+                    child: SansBold("Submit", 20.0),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
